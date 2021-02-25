@@ -1,6 +1,6 @@
 <template>
   <SecondaryLayout>
-    <h1>Login</h1>
+    <h1>Criar Conta</h1>
     <form>
       <input
         type="text"
@@ -14,8 +14,14 @@
         name="fpassword"
         placeholder="Password"
       />
-      <button type="submit">Entrar</button>
-      <a href="#">Criar Conta</a>
+      <input
+        type="text"
+        id="frepeatpassword"
+        name="frepeatpassword"
+        placeholder="Repita o Password"
+      />
+      <button type="submit">Criar</button>
+      <a href="#">Entrar</a>
     </form>
   </SecondaryLayout>
 </template>
@@ -24,13 +30,14 @@
 import SecondaryLayout from '@/components/layouts/Secondary'
 
 export default {
-  name: 'Signin',
+  name: 'Signup',
   components: {
     SecondaryLayout
   }
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import '../styles/sign';
 </style>
