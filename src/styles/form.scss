@@ -1,0 +1,22 @@
+form {
+  input {
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 999px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  button {
+    height: 40px;
+    border-radius: 999px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background: #ddd;
+    }
+  }
+}
