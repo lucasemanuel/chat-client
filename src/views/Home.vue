@@ -15,7 +15,7 @@
       </footer>
     </aside>
     <section class="conversation">
-      <h3>@soteldo</h3>
+      <h3 class="userConversation">@soteldo</h3>
       <div class="messages">
         <p class="message me">
           Opa, como vai?
@@ -32,7 +32,7 @@
       </div>
       <form>
         <input type="text" />
-        <button type="submit">Enviar</button>
+        <button type="submit"></button>
       </form>
     </section>
   </main>
@@ -46,9 +46,11 @@ export default {
 
 <style lang="scss">
 main {
+  height: 100vh;
+
   header {
     height: 64px;
-    background: #982ea1;
+    background: #1d7e71;
     width: 100%;
     line-height: 64px;
 
@@ -60,11 +62,24 @@ main {
   }
 
   .conversation {
-    padding: 0 10px;
+    :not(.userConversation) {
+      padding: 0 12px;
+    }
+
+    .userConversation {
+      height: 36px;
+      line-height: 36px;
+      background: #299c8d;
+      font-weight: 500;
+      text-align: center;
+    }
 
     .messages {
       display: flex;
       flex-direction: column;
+      margin: 18px 0;
+      height: calc(100vh - 64px - 36px - 36px - 52px);
+      overflow: auto;
 
       .message {
         display: flex;
@@ -87,6 +102,33 @@ main {
         &.him {
           background: royalblue;
           border-top-left-radius: 0;
+        }
+      }
+    }
+
+    form {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      background: #299c8d;
+
+      input {
+        height: 36px;
+        padding: 0 16px;
+        border-radius: 999px;
+        flex: 1;
+        margin-right: 8px;
+        font-size: 16px;
+      }
+
+      button {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+
+        &::after {
+          content: '>';
+          text-align: center;
         }
       }
     }
