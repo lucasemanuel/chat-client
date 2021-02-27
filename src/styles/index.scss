@@ -18,6 +18,10 @@ body {
 
   button {
     cursor: pointer;
+
+    &:hover {
+      background: #ddd;
+    }
   }
 
   .none {
