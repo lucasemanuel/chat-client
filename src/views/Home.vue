@@ -1,10 +1,11 @@
 <template>
   <main>
     <header>
+      <span v-on:click="toggleMenu">menu</span>
       <h1 class="logo">chatSocket</h1>
     </header>
-    <aside class="users none">
-      <span class="userLogged">@lucasemanuel</span>
+    <aside class="menu" v-bind:class="{ none: hideMenu }">
+      <p class="userLogged">@lucasemanuel</p>
       <ul>
         <li>@soteldo</li>
         <li>@lucasverissimo</li>
@@ -40,7 +41,17 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  data () {
+    return {
+      hideMenu: false
+    }
+  },
+  methods: {
+    toggleMenu () {
+      this.hideMenu = !this.hideMenu
+    }
+  }
 }
 </script>
 
@@ -49,15 +60,35 @@ main {
   height: 100vh;
 
   header {
+    display: flex;
     height: 64px;
-    background: #1d7e71;
-    width: 100%;
     line-height: 64px;
+    width: 100%;
+    background: #1d7e71;
 
     h1.logo {
       font-weight: 500;
       font-size: 28px;
       text-align: center;
+    }
+  }
+
+  aside.menu {
+    background: #e7f3f1;
+    position: absolute;
+    height: calc(100vh - 64px);
+    width: 100%;
+
+    .userLogged {
+      height: 32px;
+      line-height: 32px;
+      background: #299c8d;
+    }
+
+    ul li {
+      height: 80px;
+      line-height: 80px;
+      border-bottom: 2px solid #ddd;
     }
   }
 
