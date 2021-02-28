@@ -56,6 +56,8 @@ export default {
 </script>
 
 <style lang="scss">
+$media-table: 786px;
+
 main {
   height: 100vh;
 
@@ -65,6 +67,7 @@ main {
     line-height: 64px;
     width: 100%;
     background: #1d7e71;
+    grid-area: header;
 
     h1.logo {
       font-weight: 500;
@@ -78,6 +81,7 @@ main {
     position: absolute;
     height: calc(100vh - 64px);
     width: 100%;
+    grid-area: menu;
 
     .userLogged {
       height: 32px;
@@ -90,9 +94,16 @@ main {
       line-height: 80px;
       border-bottom: 2px solid #ddd;
     }
+
+    @media (min-width: $media-table) {
+      background: #45ecd1;
+      position: static;
+    }
   }
 
   .conversation {
+    grid-area: conversation;
+
     :not(.userConversation) {
       padding: 0 12px;
     }
@@ -163,6 +174,15 @@ main {
         }
       }
     }
+  }
+
+  @media (min-width: $media-table) {
+    display: grid;
+    grid-template-areas:
+      'header header'
+      'menu conversation';
+    grid-template-columns: 360px auto;
+    grid-auto-columns: 100px;
   }
 }
 </style>
