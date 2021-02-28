@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-$media-table: 786px;
+$media-tablet: 786px;
 
 main {
   height: 100vh;
@@ -73,6 +73,12 @@ main {
       font-weight: 500;
       font-size: 28px;
       text-align: center;
+    }
+
+    span {
+      @media (min-width: $media-tablet) {
+        display: none;
+      }
     }
   }
 
@@ -95,9 +101,10 @@ main {
       border-bottom: 2px solid #ddd;
     }
 
-    @media (min-width: $media-table) {
-      background: #45ecd1;
+    @media (min-width: $media-tablet) {
       position: static;
+      display: block;
+      background: #45ecd1;
     }
   }
 
@@ -176,7 +183,7 @@ main {
     }
   }
 
-  @media (min-width: $media-table) {
+  @media (min-width: $media-tablet) {
     display: grid;
     grid-template-areas:
       'header header'
