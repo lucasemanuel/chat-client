@@ -1,28 +1,31 @@
 <template>
   <SecondaryLayout>
     <h1>Criar Conta</h1>
-    <form>
+    <form v-on:submit.prevent="onSubmit">
       <input
         type="text"
         id="fusername"
         name="fusername"
         placeholder="Username"
+        v-model="username"
       />
       <input
-        type="text"
+        type="password"
         id="fpassword"
         name="fpassword"
         placeholder="Password"
+        v-model="password"
       />
       <input
-        type="text"
+        type="password"
         id="frepeatpassword"
         name="frepeatpassword"
         placeholder="Repita o Password"
+        v-model="repeatPassword"
       />
       <button type="submit">Criar</button>
-      <a href="#">Entrar</a>
     </form>
+    <a href="#">Entrar</a>
   </SecondaryLayout>
 </template>
 
@@ -33,6 +36,29 @@ export default {
   name: 'Signup',
   components: {
     SecondaryLayout
+  },
+  data () {
+    return {
+      username: '',
+      password: '',
+      repeatPassword: ''
+    }
+  },
+  computed: {
+    form () {
+      return {
+        username: this.username,
+        password: this.password,
+        password_confirmation: this.repeatPassword
+      }
+    }
+  },
+  methods: {
+    onSubmit () {
+      this.$http.post('/users', this.form).catch(error => {
+        console.log(error)
+      })
+    }
   }
 }
 </script>
