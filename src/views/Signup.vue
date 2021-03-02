@@ -25,7 +25,7 @@
       />
       <button type="submit">Criar</button>
     </form>
-    <a href="#">Entrar</a>
+    <router-link to="/login">Entrar</router-link>
   </SecondaryLayout>
 </template>
 
