@@ -1,7 +1,7 @@
 <template>
   <SecondaryLayout>
     <h1>Login</h1>
-    <form v-on:submit.prevent="onSubmit">
+    <form v-on:submit.prevent="onSubmit(form)">
       <input
         type="text"
         id="fusername"
@@ -24,6 +24,7 @@
 
 <script>
 import SecondaryLayout from '@/components/layouts/Secondary'
+// import { mapActions } from 'vuex'
 
 export default {
   name: 'Signin',
@@ -42,11 +43,10 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      this.$http
-        .post('/auth/login', this.form)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
+    onSubmit (form) {
+      this.$store.dispatch('login', form).then(() => {
+        this.$router.push('/')
+      })
     }
   }
 }
