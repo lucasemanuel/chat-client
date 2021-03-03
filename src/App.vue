@@ -5,10 +5,15 @@
 <script>
 export default {
   created () {
-    this.$http.interceptors.response.use(undefined, error => {
-      if (error.status === 401) this.$store.dispatch('logout')
-
-      return Promise.reject(error)
+    this.$http.interceptors.response.use(undefined, ({ response: error }) => {
+      if (error.status === 401) {
+        this.$store.dispatch('logout').then(() => {
+          this.$store.commit('loggerOut')
+          this.$router.push('/login')
+        })
+      } else {
+        return Promise.reject(error)
+      }
     })
   }
 }
