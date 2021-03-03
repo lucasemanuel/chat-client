@@ -24,7 +24,6 @@
 
 <script>
 import SecondaryLayout from '@/components/layouts/Secondary'
-// import { mapActions } from 'vuex'
 
 export default {
   name: 'Signin',
@@ -45,6 +44,7 @@ export default {
   methods: {
     onSubmit (form) {
       this.$store.dispatch('login', form).then(() => {
+        this.$store.commit('loggerIn')
         this.$router.push('/')
       })
     }
