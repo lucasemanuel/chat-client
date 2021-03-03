@@ -6,16 +6,28 @@ import axios from '@/http/axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    auth: undefined
+  },
   getters: {
     token () {
       return localStorage.getItem('token')
     },
     user () {
       return JSON.parse(localStorage.getItem('user'))
+    },
+    isAuthenticated (state, getters) {
+      return !!getters.token
     }
   },
-  mutations: {},
+  mutations: {
+    loggerIn (state) {
+      state.auth = true
+    },
+    loggerOut (state) {
+      state.auth = false
+    }
+  },
   actions: {
     login ({ commit }, user) {
       return new Promise((resolve, reject) => {
