@@ -12,7 +12,7 @@
         <li>@marinho</li>
       </ul>
       <footer>
-        <span>Exit</span>
+        <a href="#" v-on:click="onLogout">Exit</a>
       </footer>
     </aside>
     <section class="conversation">
@@ -47,9 +47,18 @@ export default {
       hideMenu: false
     }
   },
+  created () {
+    this.$http.get('/users')
+  },
   methods: {
     toggleMenu () {
       this.hideMenu = !this.hideMenu
+    },
+    onLogout () {
+      this.$store.dispatch('logout').then(() => {
+        this.$store.commit('loggerOut')
+        this.$router.push('/login')
+      })
     }
   }
 }
