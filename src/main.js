@@ -5,6 +5,10 @@ import store from './store'
 
 import axios from './http/axios'
 
+axios.defaults.headers.common = {
+  Authorization: `Bearer ${localStorage.getItem('token')}`
+}
+
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
