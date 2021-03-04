@@ -4,8 +4,8 @@
       <span v-on:click="toggleMenu">menu</span>
       <h1 class="logo">chatSocket</h1>
     </header>
-    <Sidebar v-bind:hide-menu="hideMenu" v-on:selectUser="changeConversation" />
-    <Conversation v-bind:user="conversationUser" />
+    <Sidebar v-bind:hide-menu="hideMenu" />
+    <Conversation />
   </main>
 </template>
 
@@ -23,22 +23,18 @@ export default {
   },
   data () {
     return {
-      hideMenu: false,
-      conversationUser: {}
+      hideMenu: false
     }
   },
   computed: {
     ...mapState(['users'])
   },
   created () {
-    if (this.users.length) this.conversationUser = this.users[0]
+    this.$store.dispatch('getUsers')
   },
   methods: {
     toggleMenu () {
       this.hideMenu = !this.hideMenu
-    },
-    changeConversation (index) {
-      this.conversationUser = this.users[index]
     }
   }
 }

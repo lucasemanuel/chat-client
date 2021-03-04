@@ -5,7 +5,7 @@
       <li
         v-for="(user, index) in users"
         v-bind:key="user.id"
-        v-on:click="$emit('selectUser', index)"
+        v-on:click="selectUser(index)"
       >
         {{ user.username | at }}
       </li>
@@ -28,11 +28,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['users']),
+    ...mapState(['users', 'destination']),
     ...mapGetters(['user'])
-  },
-  created () {
-    this.$store.dispatch('getUsers')
   },
   methods: {
     onLogout () {
@@ -40,6 +37,12 @@ export default {
         this.$store.commit('loggerOut')
         this.$router.push('/login')
       })
+    },
+    selectUser (index) {
+      this.$store.commit('setDestination', index)
+      if (this.destination) {
+        this.$store.dispatch('getMessages', this.destination.id)
+      }
     }
   }
 }
