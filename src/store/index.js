@@ -8,7 +8,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     auth: undefined,
-    users: []
+    users: [],
+    messages: [],
+    destination: undefined
   },
   getters: {
     token () {
@@ -30,6 +32,12 @@ export default new Vuex.Store({
     },
     setUsers (state, payload) {
       state.users = payload
+    },
+    updateMessages (state, payload) {
+      state.messages = payload
+    },
+    setDestination (state, payload) {
+      if (state.users.length) state.destination = state.users[payload]
     }
   },
   actions: {
@@ -63,8 +71,22 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios
           .get('/users')
-          .then(({ data }) => {
-            commit('setUsers', data)
+          .then(response => {
+            commit('setUsers', response.data)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    getMessages ({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`/messages/${user}`)
+          .then(response => {
+            commit('updateMessages', response.data)
+            resolve(response)
           })
           .catch(error => {
             reject(error)
