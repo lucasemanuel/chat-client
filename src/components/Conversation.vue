@@ -1,20 +1,7 @@
 <template>
-  <section class="conversation">
+  <section class="conversation" v-if="user !== undefined">
     <h3 class="userConversation">{{ user.username | at }}</h3>
-    <div class="messages">
-      <p class="message me">
-        Opa, como vai?
-      </p>
-      <p class="message him">
-        Bien, e usted?
-      </p>
-      <p class="message me">
-        Bem, mas poderia ta melhor se o santos fosse tetra da liberta.
-      </p>
-      <p class="message him">
-        Não deu, fica para a próxima.
-      </p>
-    </div>
+    <Messages />
     <form>
       <input type="text" />
       <button type="submit"></button>
@@ -23,10 +10,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import Messages from '@/components/Messages'
+
 export default {
   name: 'Conversation',
-  props: {
-    user: Object
+  components: {
+    Messages
+  },
+  computed: {
+    ...mapState({ user: 'destination' })
   }
 }
 </script>
@@ -34,10 +28,6 @@ export default {
 <style lang="scss">
 .conversation {
   grid-area: conversation;
-
-  :not(.userConversation) {
-    padding: 0 12px;
-  }
 
   .userConversation {
     height: 36px;
@@ -47,39 +37,8 @@ export default {
     text-align: center;
   }
 
-  .messages {
-    display: flex;
-    flex-direction: column;
-    margin: 18px 0;
-    height: calc(100vh - 64px - 36px - 36px - 52px);
-    overflow: auto;
-
-    .message {
-      display: flex;
-      border-radius: 16px;
-      width: fit-content;
-      padding: 12px;
-
-      &:not(:last-of-type) {
-        margin-bottom: 12px;
-      }
-
-      &.me {
-        background: #ddd;
-        border-bottom-right-radius: 0;
-        text-align: right;
-        align-self: flex-end;
-        margin-left: 12%;
-      }
-
-      &.him {
-        background: royalblue;
-        border-top-left-radius: 0;
-      }
-    }
-  }
-
   form {
+    padding: 0 12px;
     height: 52px;
     display: flex;
     align-items: center;
