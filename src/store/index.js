@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    auth: undefined
+    auth: undefined,
+    users: []
   },
   getters: {
     token () {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     loggerOut (state) {
       state.auth = false
+    },
+    setUsers (state, payload) {
+      state.users = payload
     }
   },
   actions: {
@@ -53,6 +57,18 @@ export default new Vuex.Store({
         localStorage.removeItem('user')
         delete axios.defaults.headers.common.Authorization
         resolve()
+      })
+    },
+    getUsers ({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get('/users')
+          .then(({ data }) => {
+            commit('setUsers', data)
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     }
   },
