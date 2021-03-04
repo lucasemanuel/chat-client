@@ -4,44 +4,21 @@
       <span v-on:click="toggleMenu">menu</span>
       <h1 class="logo">chatSocket</h1>
     </header>
-    <aside class="menu" v-bind:class="{ none: hideMenu }">
-      <p class="userLogged">@lucasemanuel</p>
-      <ul>
-        <li>@soteldo</li>
-        <li>@lucasverissimo</li>
-        <li>@marinho</li>
-      </ul>
-      <footer>
-        <a href="#" v-on:click="onLogout">Exit</a>
-      </footer>
-    </aside>
-    <section class="conversation">
-      <h3 class="userConversation">@soteldo</h3>
-      <div class="messages">
-        <p class="message me">
-          Opa, como vai?
-        </p>
-        <p class="message him">
-          Bien, e usted?
-        </p>
-        <p class="message me">
-          Bem, mas poderia ta melhor se o santos fosse tetra da liberta.
-        </p>
-        <p class="message him">
-          Não deu, fica para a próxima.
-        </p>
-      </div>
-      <form>
-        <input type="text" />
-        <button type="submit"></button>
-      </form>
-    </section>
+    <Sidebar v-bind:hide-menu="hideMenu" />
+    <Conversation />
   </main>
 </template>
 
 <script>
+import Sidebar from '@/components/Sidebar'
+import Conversation from '@/components/Conversation'
+
 export default {
   name: 'Home',
+  components: {
+    Sidebar,
+    Conversation
+  },
   data () {
     return {
       hideMenu: false
@@ -53,15 +30,45 @@ export default {
   methods: {
     toggleMenu () {
       this.hideMenu = !this.hideMenu
-    },
-    onLogout () {
-      this.$store.dispatch('logout').then(() => {
-        this.$store.commit('loggerOut')
-        this.$router.push('/login')
-      })
     }
   }
 }
 </script>
 
-<style lang="scss" src="@/styles/home.scss" />
+<style lang="scss">
+@import '@/styles/variables';
+
+main {
+  height: 100vh;
+
+  header {
+    display: flex;
+    height: 64px;
+    line-height: 64px;
+    width: 100%;
+    background: #1d7e71;
+    grid-area: header;
+
+    h1.logo {
+      font-weight: 500;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    span {
+      @media (min-width: $media-tablet) {
+        display: none;
+      }
+    }
+  }
+
+  @media (min-width: $media-tablet) {
+    display: grid;
+    grid-template-areas:
+      'header header'
+      'menu conversation';
+    grid-template-columns: 360px auto;
+    grid-auto-columns: 100px;
+  }
+}
+</style>
