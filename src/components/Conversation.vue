@@ -1,6 +1,6 @@
 <template>
   <section class="conversation">
-    <h3 class="userConversation">@soteldo</h3>
+    <h3 class="userConversation">{{ user.username | at }}</h3>
     <div class="messages">
       <p class="message me">
         Opa, como vai?
@@ -24,7 +24,10 @@
 
 <script>
 export default {
-  name: 'Conversation'
+  name: 'Conversation',
+  props: {
+    user: Object
+  }
 }
 </script>
 

@@ -2,7 +2,11 @@
   <aside class="menu" v-bind:class="{ none: hideMenu }">
     <p class="userLogged">{{ user.username | at }}</p>
     <ul>
-      <li v-for="user in users" v-bind:key="user.id">
+      <li
+        v-for="(user, index) in users"
+        v-bind:key="user.id"
+        v-on:click="$emit('selectUser', index)"
+      >
         {{ user.username | at }}
       </li>
     </ul>

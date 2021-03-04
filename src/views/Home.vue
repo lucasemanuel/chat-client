@@ -4,12 +4,14 @@
       <span v-on:click="toggleMenu">menu</span>
       <h1 class="logo">chatSocket</h1>
     </header>
-    <Sidebar v-bind:hide-menu="hideMenu" />
-    <Conversation />
+    <Sidebar v-bind:hide-menu="hideMenu" v-on:selectUser="changeConversation" />
+    <Conversation v-bind:user="conversationUser" />
   </main>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import Sidebar from '@/components/Sidebar'
 import Conversation from '@/components/Conversation'
 
@@ -21,15 +23,22 @@ export default {
   },
   data () {
     return {
-      hideMenu: false
+      hideMenu: false,
+      conversationUser: {}
     }
   },
+  computed: {
+    ...mapState(['users'])
+  },
   created () {
-    this.$http.get('/users')
+    if (this.users.length) this.conversationUser = this.users[0]
   },
   methods: {
     toggleMenu () {
       this.hideMenu = !this.hideMenu
+    },
+    changeConversation (index) {
+      this.conversationUser = this.users[index]
     }
   }
 }
