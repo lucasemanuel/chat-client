@@ -12,6 +12,11 @@ axios.defaults.headers.common = {
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
+Vue.filter('at', value => {
+  if (!value) return ''
+  return `@${value}`
+})
+
 new Vue({
   router,
   store,
