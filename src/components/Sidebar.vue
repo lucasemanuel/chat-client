@@ -1,10 +1,10 @@
 <template>
   <aside class="menu" v-bind:class="{ none: hideMenu }">
-    <p class="userLogged">@lucasemanuel</p>
+    <p class="userLogged">{{ user.username | at }}</p>
     <ul>
-      <li>@soteldo</li>
-      <li>@lucasverissimo</li>
-      <li>@marinho</li>
+      <li v-for="user in users" v-bind:key="user.id">
+        {{ user.username | at }}
+      </li>
     </ul>
     <footer>
       <a href="#" v-on:click="onLogout">Exit</a>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
+
 export default {
   name: 'Sidebar',
   props: {
@@ -20,6 +22,13 @@ export default {
       type: Boolean,
       require: true
     }
+  },
+  computed: {
+    ...mapState(['users']),
+    ...mapGetters(['user'])
+  },
+  created () {
+    this.$store.dispatch('getUsers')
   },
   methods: {
     onLogout () {
