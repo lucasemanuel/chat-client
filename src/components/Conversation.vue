@@ -2,8 +2,8 @@
   <section class="conversation" v-if="user !== undefined">
     <h3 class="userConversation">{{ user.username | at }}</h3>
     <Messages />
-    <form>
-      <input type="text" />
+    <form v-on:submit.prevent="onSubmit">
+      <input type="text" v-model="message" />
       <button type="submit"></button>
     </form>
   </section>
@@ -19,8 +19,25 @@ export default {
   components: {
     Messages
   },
+  data () {
+    return {
+      message: ''
+    }
+  },
   computed: {
     ...mapState({ user: 'destination' })
+  },
+  methods: {
+    onSubmit () {
+      this.$store
+        .dispatch('sendMessage', {
+          body: this.message,
+          destination_id: this.user.id
+        })
+        .then(() => {
+          this.message = ''
+        })
+    }
   }
 }
 </script>

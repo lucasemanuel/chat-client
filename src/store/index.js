@@ -92,6 +92,18 @@ export default new Vuex.Store({
             reject(error)
           })
       })
+    },
+    sendMessage ({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/messages/', payload)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     }
   },
   modules: {}
