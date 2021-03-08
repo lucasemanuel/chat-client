@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import Sidebar from '@/components/Sidebar'
 import Conversation from '@/components/Conversation'
 
@@ -25,12 +23,6 @@ export default {
     return {
       hideMenu: false
     }
-  },
-  computed: {
-    ...mapState(['users'])
-  },
-  created () {
-    this.$store.dispatch('getUsers')
   },
   methods: {
     toggleMenu () {

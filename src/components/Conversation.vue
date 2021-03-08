@@ -1,6 +1,6 @@
 <template>
-  <section class="conversation" v-if="user !== undefined">
-    <h3 class="userConversation">{{ user.username | at }}</h3>
+  <section class="conversation" v-if="destination.id">
+    <h3 class="userConversation">{{ destination.username | at }}</h3>
     <Messages />
     <form v-on:submit.prevent="onSubmit">
       <input type="text" v-model="message" />
@@ -11,7 +11,6 @@
 
 <script>
 import { mapState } from 'vuex'
-
 import Messages from '@/components/Messages'
 
 export default {
@@ -25,7 +24,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({ user: 'destination' })
+    ...mapState({
+      destination: state => state.chat.conversation.userDestination
+    })
   },
   methods: {
     onSubmit () {

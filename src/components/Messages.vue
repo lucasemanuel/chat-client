@@ -1,10 +1,10 @@
 <template>
   <div class="messages">
     <Message
-      v-for="m in messages"
-      v-bind:content="m.body"
-      v-bind:key="m.id"
-      v-bind:type-user="m.source_id == user.id"
+      v-for="message in messages"
+      v-bind:content="message.body"
+      v-bind:key="message.id"
+      v-bind:type-user="message.source_id == user.id"
     />
   </div>
 </template>
@@ -19,8 +19,11 @@ export default {
     Message
   },
   computed: {
-    ...mapState(['destination', 'messages']),
-    ...mapGetters(['user'])
+    ...mapState({
+      destination: state => state.chat.conversation.userDestination,
+      messages: state => state.chat.conversation.messages
+    }),
+    ...mapGetters({ user: 'getUserLogged' })
   }
 }
 </script>

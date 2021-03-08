@@ -24,6 +24,7 @@
 
 <script>
 import SecondaryLayout from '@/components/layouts/Secondary'
+import axios from '@/http/axios'
 
 export default {
   name: 'Signin',
@@ -43,10 +44,20 @@ export default {
   },
   methods: {
     onSubmit (form) {
-      this.$store.dispatch('login', form).then(() => {
-        this.$store.commit('loggerIn')
-        this.$router.push('/')
-      })
+      this.$store
+        .dispatch('login', form)
+        .then(({ data }) => {
+          const { user, access_token: token } = data
+          localStorage.setItem('token', token)
+          localStorage.setItem('user', JSON.stringify(user))
+          axios.defaults.headers.common = { Authorization: `Bearer ${token}` }
+          this.$router.push({ name: 'Home', params: { auth: true } })
+        })
+        .catch(error => {
+          localStorage.removeItem('token')
+          localStorage.removeItem('user')
+          return error
+        })
     }
   }
 }

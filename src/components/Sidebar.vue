@@ -3,7 +3,7 @@
     <p class="userLogged">{{ user.username | at }}</p>
     <ul>
       <li
-        v-for="(user, index) in users"
+        v-for="(user, index) in listUsers"
         v-bind:key="user.id"
         v-on:click="selectUser(index)"
       >
@@ -18,6 +18,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import { SET_USER_DESTINATION } from '@/store/chat/mutation-types'
 
 export default {
   name: 'Sidebar',
@@ -27,21 +28,26 @@ export default {
       require: true
     }
   },
+  created () {
+    this.$store.dispatch('fetchUsers')
+  },
   computed: {
-    ...mapState(['users', 'destination']),
-    ...mapGetters(['user'])
+    ...mapState({
+      listUsers: state => state.chat.listUsers,
+      destination: state => state.chat.conversation.userDestination
+    }),
+    ...mapGetters({ user: 'getUserLogged' })
   },
   methods: {
     onLogout () {
       this.$store.dispatch('logout').then(() => {
-        this.$store.commit('loggerOut')
-        this.$router.push('/login')
+        this.$router.push({ name: 'Login', params: { auth: false } })
       })
     },
     selectUser (index) {
-      this.$store.commit('setDestination', index)
+      this.$store.commit(SET_USER_DESTINATION, index)
       if (this.destination) {
-        this.$store.dispatch('getMessages', this.destination.id)
+        this.$store.dispatch('fetchMessages', this.destination.id)
       }
     }
   }
