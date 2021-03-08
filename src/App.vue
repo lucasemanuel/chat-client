@@ -15,6 +15,15 @@ export default {
         return Promise.reject(error)
       }
     })
+
+    if (this.$store.getters.isAuthenticated) {
+      const { user } = this.$store.getters
+      console.log(user)
+
+      this.$echo.private(`user.${user.id}`).listen('SendMessage', e => {
+        console.log(e)
+      })
+    }
   }
 }
 </script>
