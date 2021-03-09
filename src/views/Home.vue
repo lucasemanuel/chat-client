@@ -1,10 +1,10 @@
 <template>
   <main>
     <header>
-      <span v-on:click="toggleMenu">menu</span>
+      <span v-on:click="toggleMenu" class="menu">menu</span>
       <h1 class="logo">chatSocket</h1>
     </header>
-    <Sidebar v-bind:hide-menu="hideMenu" />
+    <Sidebar v-bind:hide-menu="hideMenu" v-on:update-hide-class="toggleMenu" />
     <Conversation />
   </main>
 </template>
@@ -32,24 +32,35 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/variables';
 
 main {
   height: 100vh;
+  background: $bg-color;
 
   header {
     display: flex;
     height: 64px;
     line-height: 64px;
     width: 100%;
-    background: #1d7e71;
+    background: $primary-color;
     grid-area: header;
+    border-bottom: $border;
+
+    .menu span {
+      z-index: 1;
+    }
 
     h1.logo {
-      font-weight: 500;
       font-size: 28px;
       text-align: center;
+      width: 100%;
+      display: block;
+      position: absolute;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #1e2933;
     }
 
     span {
