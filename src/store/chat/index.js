@@ -2,7 +2,8 @@ import axios from '@/http/axios'
 import {
   SET_LIST_USERS,
   SET_USER_DESTINATION,
-  SET_MESSAGES
+  SET_MESSAGES,
+  ADD_MESSAGE
 } from './mutation-types'
 
 const state = {
@@ -24,6 +25,9 @@ const mutations = {
   },
   [SET_MESSAGES] (state, payload) {
     state.conversation.messages = payload
+  },
+  [ADD_MESSAGE] (state, payload) {
+    state.conversation.messages = [...state.conversation.messages, payload]
   },
   [SET_USER_DESTINATION] (state, payload) {
     state.conversation.userDestination = state.listUsers[payload]
@@ -62,6 +66,7 @@ const actions = {
       axios
         .post('/messages/', payload)
         .then(response => {
+          commit(ADD_MESSAGE, response.data)
           resolve(response)
         })
         .catch(error => {
