@@ -11,6 +11,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 import Messages from '@/components/Messages'
 
 export default {
@@ -33,7 +34,7 @@ export default {
       this.$store
         .dispatch('sendMessage', {
           body: this.message,
-          destination_id: this.user.id
+          destination_id: this.destination.id
         })
         .then(() => {
           this.message = ''
