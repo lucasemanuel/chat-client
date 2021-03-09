@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { ADD_MESSAGE } from '@/store/chat/mutation-types'
+
 export default {
   created () {
     this.$http.interceptors.response.use(undefined, ({ response: error }) => {
@@ -19,7 +21,7 @@ export default {
       const { getUserLogged: user } = this.$store.getters
 
       this.$echo.private(`user.${user.id}`).listen('SendMessage', e => {
-        console.log(e)
+        this.$store.commit(ADD_MESSAGE, e.message)
       })
     }
   }
