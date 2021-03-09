@@ -44,30 +44,36 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '@/styles/variables';
+
 .conversation {
   grid-area: conversation;
+  background: #f0f0f0;
 
   .userConversation {
-    height: 36px;
-    line-height: 36px;
-    background: #299c8d;
-    font-weight: 500;
+    height: 42px;
+    line-height: 42px;
+    background: $secondary-color;
     text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    border-bottom: $border;
   }
 
   form {
-    padding: 0 12px;
-    height: 52px;
     display: flex;
     align-items: center;
-    background: #299c8d;
+    background: $secondary-color;
+    padding: 0 12px;
+    height: 52px;
+    border-top: $border;
 
     input {
+      flex: 1;
       height: 36px;
       padding: 0 16px;
       border-radius: 999px;
-      flex: 1;
       margin-right: 8px;
       font-size: 16px;
     }
@@ -76,6 +82,8 @@ export default {
       width: 36px;
       height: 36px;
       border-radius: 999px;
+      font-weight: 700;
+      line-height: 36px;
 
       &::after {
         content: '>';

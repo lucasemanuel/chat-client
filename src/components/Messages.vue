@@ -31,11 +31,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .messages {
   display: flex;
   flex-direction: column;
-  margin: 18px 0;
+  margin: 12px 0;
   height: calc(100vh - 64px - 36px - 36px - 52px);
   overflow: auto;
   padding: 0 12px;

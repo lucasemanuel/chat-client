@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .message {
   display: flex;
   border-radius: 16px;
@@ -35,16 +35,18 @@ export default {
   }
 
   &.me {
-    background: #ddd;
-    border-bottom-right-radius: 0;
+    border-bottom-right-radius: 2px;
     text-align: right;
     align-self: flex-end;
     margin-left: 12%;
+    background: #8fc2f1;
+    color: #151d24;
   }
 
   &.him {
-    background: royalblue;
-    border-top-left-radius: 0;
+    border-top-left-radius: 2px;
+    background: #e0e0e0;
+    color: #2e2e2e;
   }
 }
 </style>
