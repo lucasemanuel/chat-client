@@ -29,6 +29,7 @@ export default {
   width: fit-content;
   padding: 12px;
   background: #ddd;
+  word-break: break-word;
 
   &:not(:last-of-type) {
     margin-bottom: 12px;
