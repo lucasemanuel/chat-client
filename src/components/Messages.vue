@@ -24,6 +24,9 @@ export default {
       messages: state => state.chat.conversation.messages
     }),
     ...mapGetters({ user: 'getUserLogged' })
+  },
+  updated () {
+    document.querySelector('.message:last-child').scrollIntoView()
   }
 }
 </script>
