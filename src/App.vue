@@ -22,9 +22,12 @@ export default {
 
     if (this.$store.getters.isAuthenticated) {
       const { getUserLogged: user } = this.$store.getters
+      const { conversation } = this.$store.state.chat
 
       this.$echo.private(`user.${user.id}`).listen('SendMessage', e => {
-        this.$store.commit(ADD_MESSAGE, e.message)
+        if (e.message.source_id === conversation.userDestination.id) {
+          this.$store.commit(ADD_MESSAGE, e.message)
+        }
       })
     }
   }
