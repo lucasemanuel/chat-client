@@ -7,9 +7,12 @@
         v-on:click="selectUser(index)"
       >
         <Avatar v-bind:name="user.username" />
-        <span>
-          {{ user.username | at }}
-        </span>
+        <div class="user">
+          <span class="username">
+            {{ user.username | at }}
+          </span>
+          <div class="notification" v-if="user.notification" />
+        </div>
       </li>
     </ul>
     <footer>
@@ -77,28 +80,6 @@ aside.menu {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 
-  .userLogged {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 64px;
-    color: $font-color;
-    border-bottom: $border;
-
-    .fa-user-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-
-    span {
-      font-weight: 500;
-      font-size: 32px;
-      color: $font-color;
-    }
-  }
-
   ul {
     flex: 1;
     overflow-y: auto;
@@ -118,9 +99,37 @@ aside.menu {
         margin-top: 8px;
       }
 
-      span {
-        font-size: 18px;
-        margin-left: 8px;
+      .user {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+
+        .username {
+          font-size: 18px;
+          margin-left: 8px;
+          flex: 1;
+        }
+
+        .notification {
+          width: 16px;
+          height: 16px;
+          background: $secondary-color;
+          border-radius: 50%;
+          animation: pulse 3.2s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            background-color: rgb(118, 231, 235);
+          }
+          50% {
+            background-color: $font-color;
+          }
+          100% {
+            background-color: rgb(118, 231, 235);
+          }
+        }
       }
     }
   }

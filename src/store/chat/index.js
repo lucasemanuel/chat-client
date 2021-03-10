@@ -3,7 +3,8 @@ import {
   SET_LIST_USERS,
   SET_USER_DESTINATION,
   SET_MESSAGES,
-  ADD_MESSAGE
+  ADD_MESSAGE,
+  SET_NOTIFICATION
 } from './mutation-types'
 
 const state = {
@@ -31,6 +32,9 @@ const mutations = {
   },
   [SET_USER_DESTINATION] (state, payload) {
     state.conversation.userDestination = state.listUsers[payload]
+  },
+  [SET_NOTIFICATION] (state, { index, notification }) {
+    state.listUsers[index].notification = notification
   }
 }
 
@@ -40,7 +44,9 @@ const actions = {
       axios
         .get('/users')
         .then(response => {
-          commit(SET_LIST_USERS, response.data)
+          let users = response.data
+          users = users.map(obj => ({ ...obj, notification: false }))
+          commit(SET_LIST_USERS, users)
           resolve(response)
         })
         .catch(error => {
