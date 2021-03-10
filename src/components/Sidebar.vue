@@ -47,9 +47,8 @@ export default {
   },
   methods: {
     onLogout () {
-      this.$store.dispatch('logout').then(() => {
-        this.$router.push({ name: 'Login', params: { auth: false } })
-      })
+      this.$store.dispatch('logout')
+      this.$router.push({ name: 'Login', params: { auth: false } })
     },
     selectUser (index) {
       this.$store.commit(SET_USER_DESTINATION, index)
