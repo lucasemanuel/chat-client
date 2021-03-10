@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$http.post('/users', this.form).then(() => {
+      this.$http.post('/users', this.form).then(response => {
         this.$router.push({ name: 'Login' })
       })
     }
