@@ -10,8 +10,11 @@ import App from './App.vue'
 
 moment.locale('pt-BR')
 
-axios.defaults.headers.common = {
-  Authorization: `Bearer ${localStorage.getItem('token')}`
+const token = localStorage.getItem('token')
+if (token) {
+  axios.defaults.headers.common = {
+    Authorization: `Bearer ${token}`
+  }
 }
 
 window.pusher = require('pusher-js')
@@ -20,7 +23,7 @@ Vue.prototype.$echo = new Echo({
   broadcaster: 'pusher',
   key: process.env.VUE_APP_PUSHER_KEY,
   cluster: 'mt1',
-  wsHost: 'localhost',
+  wsHost: process.env.VUE_APP_WS_SOCKET,
   wsPort: 6001,
   forceTLS: false,
   disableStats: true,
