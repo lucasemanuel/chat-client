@@ -3,6 +3,7 @@
     <Message
       v-for="message in messages"
       v-bind:content="message.body"
+      v-bind:date="message.created_at"
       v-bind:key="message.id"
       v-bind:type-user="message.source_id == user.id"
     />
