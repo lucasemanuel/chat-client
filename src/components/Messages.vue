@@ -26,7 +26,8 @@ export default {
     ...mapGetters({ user: 'getUserLogged' })
   },
   updated () {
-    document.querySelector('.message:last-child').scrollIntoView()
+    const el = document.querySelector('.message:last-child')
+    if (el) el.scrollIntoView()
   }
 }
 </script>
@@ -35,8 +36,8 @@ export default {
 .messages {
   display: flex;
   flex-direction: column;
-  margin: 12px 0;
-  height: calc(100vh - 64px - 36px - 36px - 52px);
+  margin: 8px 0;
+  height: calc(100vh - 66px - 44px - 54px - 16px);
   overflow: auto;
   padding: 0 12px;
 }
