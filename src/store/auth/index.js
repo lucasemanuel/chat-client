@@ -33,8 +33,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+      axios.post('/auth/logout')
       delete axios.defaults.headers.common.Authorization
-      resolve()
     })
   }
 }
