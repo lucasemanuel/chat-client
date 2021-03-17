@@ -34,9 +34,10 @@ export default {
           const index = listUsers.findIndex((el, index) => {
             return el.id === e.message.source_id
           })
+
+          this.$store.commit(SET_NOTIFICATION, { index, notification: true })
           const audio = new Audio(sound)
           audio.play()
-          this.$store.commit(SET_NOTIFICATION, { index, notification: true })
         }
       })
     }
