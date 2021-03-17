@@ -23,11 +23,11 @@ Vue.prototype.$echo = new Echo({
   broadcaster: 'pusher',
   key: process.env.VUE_APP_PUSHER_KEY,
   cluster: 'mt1',
-  wsHost: process.env.VUE_APP_WS_SOCKET,
+  wsHost: process.env.VUE_APP_WS_HOST,
   wsPort: 6001,
   forceTLS: false,
   disableStats: true,
-  authEndpoint: process.env.VUE_APP_BROADCAST_HOST + '/broadcasting/auth',
+  authEndpoint: process.env.VUE_APP_BROADCAST_URL + '/broadcasting/auth',
   auth: {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
