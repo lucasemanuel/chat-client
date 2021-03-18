@@ -24,8 +24,14 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { SET_USER_DESTINATION } from '@/store/chat/mutation-types'
+import {
+  SET_USER_DESTINATION,
+  ADD_MESSAGE,
+  SET_NOTIFICATION
+} from '@/store/chat/mutation-types'
+
 import Avatar from '@/components/Avatar'
+import sound from '../assets/sounds/sms-alert-1-daniel_simon.mp3'
 
 export default {
   name: 'Sidebar',
@@ -47,6 +53,7 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchUsers')
+    this.listeningMessages()
   },
   methods: {
     onLogout () {
@@ -59,6 +66,22 @@ export default {
       if (this.destination) {
         this.$store.dispatch('fetchMessages', this.destination.id)
       }
+    },
+    listeningMessages () {
+      this.$echo.private(`user.${this.user.id}`).listen('SendMessage', e => {
+        if (e.message.source_id === this.destination.id) {
+          this.$store.commit(ADD_MESSAGE, e.message)
+        } else {
+          this.notification(e.message.source_id)
+        }
+      })
+    },
+    notification (sourceId) {
+      const index = this.listUsers.findIndex(el => el.id === sourceId)
+
+      this.$store.commit(SET_NOTIFICATION, { index, notification: true })
+      const audio = new Audio(sound)
+      audio.play()
     }
   }
 }

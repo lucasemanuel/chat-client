@@ -3,14 +3,11 @@
 </template>
 
 <script>
-import { ADD_MESSAGE, SET_NOTIFICATION } from '@/store/chat/mutation-types'
-import sound from './assets/sounds/sms-alert-1-daniel_simon.mp3'
-
 export default {
   created () {
     this.$http.interceptors.response.use(undefined, error => {
       const { response } = error
-      if (response.status === 401) {
+      if (response === undefined || response.status === 401) {
         if (!response.config.url.match(/(logout)/g)) {
           this.$store.dispatch('logout')
         }
@@ -21,26 +18,6 @@ export default {
       }
       return Promise.reject(error)
     })
-
-    if (this.$store.getters.isAuthenticated) {
-      const { getUserLogged: user } = this.$store.getters
-      const { conversation } = this.$store.state.chat
-
-      this.$echo.private(`user.${user.id}`).listen('SendMessage', e => {
-        if (e.message.source_id === conversation.userDestination.id) {
-          this.$store.commit(ADD_MESSAGE, e.message)
-        } else {
-          const { listUsers } = this.$store.state.chat
-          const index = listUsers.findIndex((el, index) => {
-            return el.id === e.message.source_id
-          })
-
-          this.$store.commit(SET_NOTIFICATION, { index, notification: true })
-          const audio = new Audio(sound)
-          audio.play()
-        }
-      })
-    }
   }
 }
 </script>
