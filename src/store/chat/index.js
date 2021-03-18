@@ -4,7 +4,8 @@ import {
   SET_USER_DESTINATION,
   SET_MESSAGES,
   ADD_MESSAGE,
-  SET_NOTIFICATION
+  SET_NOTIFICATION,
+  CLEAR_STATE
 } from './mutation-types'
 
 const state = {
@@ -35,6 +36,17 @@ const mutations = {
   },
   [SET_NOTIFICATION] (state, { index, notification }) {
     state.listUsers[index].notification = notification
+  },
+  [CLEAR_STATE] (state) {
+    state = {
+      conversation: {
+        userDestination: {
+          id: 0,
+          name: ''
+        },
+        messages: []
+      }
+    }
   }
 }
 
