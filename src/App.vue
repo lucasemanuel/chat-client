@@ -7,7 +7,7 @@ export default {
   created () {
     this.$http.interceptors.response.use(undefined, error => {
       const { response } = error
-      if (response === undefined || response.status === 401) {
+      if (response.status === 401) {
         if (!response.config.url.match(/(logout)/g)) {
           this.$store.dispatch('logout')
         }
