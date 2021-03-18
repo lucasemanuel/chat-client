@@ -1,4 +1,5 @@
 import axios from '@/http/axios'
+import { CLEAR_STATE } from '@/store/chat/mutation-types'
 
 const state = {}
 
@@ -35,6 +36,7 @@ const actions = {
       localStorage.removeItem('user')
       axios.post('/auth/logout')
       delete axios.defaults.headers.common.Authorization
+      commit(CLEAR_STATE)
     })
   }
 }
